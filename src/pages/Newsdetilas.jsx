@@ -11,7 +11,7 @@ function Newsdetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const baseURL = 'http://localhost:4000';
+  const baseURL = 'https://christinahome-backend.onrender.com';
 
   useEffect(() => {
     const fetchNewsDetail = async () => {

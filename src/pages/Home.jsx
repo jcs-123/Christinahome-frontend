@@ -16,12 +16,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import img1 from '../assets/slide-1.jpg';
 import img2 from '../assets/slide-2.jpg';
 import logo from '../assets/50years.jpg';
-import event1 from '../assets/ev1.jpeg';
-import event2 from '../assets/ev2.jpg';
-import event3 from '../assets/ev3.jpg';
-import event4 from '../assets/ev4.jpg';
-import event5 from '../assets/ev5.jpg';
-import event6 from '../assets/ev6.jpg';
+
 import test1 from '../assets/img-1.jpg';
 import test2 from '../assets/img-2.jpg';
 import test3 from '../assets/img-3.jpg';
@@ -42,7 +37,7 @@ import axios from 'axios';
 
 function Home() {
 const [event,setEvent]=useState([])
-  const baseURL = 'http://localhost:4000'; // ✅ Base API URL
+  const baseURL = 'https://christinahome-backend.onrender.com'; // ✅ Base API URL
 
   const getAllNews = async () => {
     try {

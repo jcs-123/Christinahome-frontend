@@ -34,7 +34,7 @@ function Header() {
             </div>
           </Col>
           <Col xs="auto">
-            <button  className="support-btn">Support Us</button>
+            <button  className="support-btn"><Link style={{textDecoration:"none",color:"white"}} to={'/Supportus' }>Support Us</Link></button>
           </Col>
         </Row>
       </Container>

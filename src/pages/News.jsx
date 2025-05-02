@@ -11,7 +11,7 @@ function News() {
   const [error, setError] = useState(null);
 
   const itemsPerPage = 5;
-  const baseURL = 'http://localhost:4000'; // ✅ Base API URL
+  const baseURL = 'https://christinahome-backend.onrender.com'; // ✅ Base API URL
 
   useEffect(() => {
     getAllNews();
