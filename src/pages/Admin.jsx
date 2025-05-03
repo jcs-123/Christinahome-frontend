@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Navbar, Nav, Dropdown } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaBars, FaSignOutAlt, FaTachometerAlt, FaCircle } from 'react-icons/fa';
 import UpdateCredentials from './UpdateCredentials'; // import modal
 import Activitylog from './Activitylog';
@@ -40,8 +40,8 @@ function Admin({ adminInfo, setAdminInfo, setIsLoggedIn, children }) {
                     </div>
 
                     <Nav className="flex-column p-2 mt-3">
-                        <Nav.Link href="/ActivityLog" className="text-white d-flex align-items-center mb-3">
-                            <FaCircle className="me-2" /> Dashboard
+                        <Nav.Link  className="text-white d-flex align-items-center mb-3">
+                            <FaCircle className="me-2" /> <Link style={{textDecoration:"none",color:"white"}} to={'/ActivityLog'}>Dashboard</Link>
                         </Nav.Link>
 
                         <div>
@@ -56,9 +56,9 @@ function Admin({ adminInfo, setAdminInfo, setIsLoggedIn, children }) {
 
                             {newsDropdownOpen && (
                                 <div className="ms-4">
-                                    <Nav.Link href="/Addnews" className="text-white small">Add News</Nav.Link>
-                                    <Nav.Link href="/Newslist" className="text-white small">News List</Nav.Link>
-                                    <Nav.Link href="/Message" className="text-white small">Messages</Nav.Link>
+                                    <Nav.Link href="" className="text-white small"><Link style={{textDecoration:"none",color:"white"}} to={'/Addnews'}>Add News</Link></Nav.Link>
+                                    <Nav.Link href="" className="text-white small"><Link style={{textDecoration:"none",color:"white"}} to={'/Newslist'}>News List</Link></Nav.Link>
+                                    <Nav.Link href="" className="text-white small"><Link style={{textDecoration:"none",color:"white"}} to={'/Message'}>Messages</Link></Nav.Link>
                                 </div>
                             )}
                         </div>
