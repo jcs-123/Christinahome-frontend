@@ -57,7 +57,8 @@ function App() {
         <Route path='/Supportus' element={<Supportus />} />
         <Route path='/Gallery' element={<Gallery />} />
         <Route path='/News' element={<News />} />
-        <Route path="/newsdetail/:id" element={<Newsdetails />} />        <Route path="/ActivityLog" element={<Admin adminInfo={adminInfo} setAdminInfo={setAdminInfo} setIsLoggedIn={setIsLoggedIn}><Activitylog /></Admin>} />
+        <Route path="/newsdetail/:id" element={<Newsdetails />} />      
+          <Route path="/ActivityLog" element={<Admin adminInfo={adminInfo} setAdminInfo={setAdminInfo} setIsLoggedIn={setIsLoggedIn}><Activitylog /></Admin>} />
 
         <Route 
           path="/Admin" 

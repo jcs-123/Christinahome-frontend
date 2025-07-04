@@ -23,8 +23,13 @@ import test3 from '../assets/img-3.jpg';
 import pray from '../assets/St.Christina.jpeg';
 import holyangels from '../assets/holy.jpg';
 import childline from '../assets/childline.png';
-import axios from 'axios';
 
+import news1 from '../assets/news1.jpeg';
+import news2 from '../assets/news2.jpg';
+import news3 from '../assets/news3.jpg';
+import news4 from '../assets/news4.jpg';
+import news5 from '../assets/news5.jpg';
+import news6 from '../assets/news6.jpeg';
 
 // const events = [
 //   { id: 1, title: 'പള്ളഴി സെന്റ് ക്രിസ്റ്റ...', desc: "Dear Friends, Christina's Home was established in 1967...", img: event1 },
@@ -36,23 +41,7 @@ import axios from 'axios';
 // ];
 
 function Home() {
-const [event,setEvent]=useState([])
-  const baseURL = 'https://christinahome-backend.onrender.com'; // ✅ Base API URL
 
-  const getAllNews = async () => {
-    try {
-      const result = await axios.get(`${baseURL}/all-news`, {
-        headers: { "Content-Type": "application/json" },
-      });
-      setEvent(result.data);
-    } catch (error) {
-      console.error('Error fetching news:', error);
-    } finally {
-    }
-  };
-    useEffect(() => {
-      getAllNews();
-    }, []);
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const [hovered, setHovered] = useState(false);
@@ -134,9 +123,45 @@ const [event,setEvent]=useState([])
     return () => clearInterval(autoplay);
   }, [testimonials.length]);
 
-  const handleReadMore = (id) => {
-    navigate(`/News/${id}`);
-  };
+
+const event = [
+  {
+    id: '1',
+    newstitle: 'പുള്ളാഴി സെൻറ് ക്രിസ്റ്റിന ...',
+    description: "Dear Friends, Christina's Home was established in 1967 by the Blessed ...",
+    image: news1,
+  },
+  {
+    id: '2',
+    newstitle: 'കുഞ്ഞുങ്ങളുടെ ഭവന ...',
+    description: "പുള്ളാഴി സെൻറ് ക്രിസ്റ്റിന ഹോമിലെ Holy Angel's Foundling home ത് ...",
+    image:news2,
+  },
+  {
+    id: '3',
+    newstitle: 'Children\'s Day Celebration and...',
+    description: "Greetings from Holy Angels Foundling Home Pullazhy. We cordially invit...",
+    image: news3,
+  },
+  {
+    id: '4',
+    newstitle: 'പുള്ളാഴി സെൻറ് ക്രിസ്റ്റിന ...',
+    description: "ക്രിസ്റ്റിനപുണ്യവതിയുടെ തിരുനാളും ക്രിസ്റ്റിന ഹോമിന്റെ 52-ാം കൂറ്റുബം...",
+    image: news4,
+  },
+  {
+    id: '5',
+    newstitle: 'പുള്ളാഴി സെൻറ് ക്രിസ്റ്റിന ...',
+    description: "സുവർണ്ണ ജൂബിലി നിവാലയത്തിനുള്ള സെൻറ് ക്രിസ്റ്റിന ഹോമിലെ Holy Angels...",
+    image: news5,
+  },
+  {
+    id: '6',
+    newstitle: 'കരുണാഭവനങ്ങൾ ആ...',
+    description: "തൃശൂർ അതിരൂപത കരുണാഭവനത്തോടനുബന്ധിച്ച് ബുധനത്താഴ്ചയുടെ ഭവമാതാ ക്രിസ്ത്യ...",
+    image: news6,
+  },
+];
 
   return (
     <div>
@@ -178,47 +203,65 @@ const [event,setEvent]=useState([])
       </div>
 
       {/* News & Events Section */}
-      <div className="news-carousel-section bg-light py-5 position-relative">
-        <Container>
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h4 style={{ color: "#aa2353" }}>News & Events</h4>
-            <div className="arrow-group">
-              <button className="carousel-arrow me-2" onClick={() => scroll('left')} disabled={!canScrollLeft}>
-                <FaChevronLeft />
-              </button>
-              <button className="carousel-arrow" onClick={() => scroll('right')} disabled={!canScrollRight}>
-                <FaChevronRight />
-              </button>
-            </div>
+  <div className="news-carousel-section bg-light py-5 position-relative">
+      <Container>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 style={{ color: '#aa2353' }}>News & Events</h4>
+          <div className="arrow-group">
+            <button
+              className="carousel-arrow me-2"
+              onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
+            >
+              <FaChevronLeft />
+            </button>
+            <button
+              className="carousel-arrow"
+              onClick={() => scroll('right')}
+              disabled={!canScrollRight}
+            >
+              <FaChevronRight />
+            </button>
           </div>
+        </div>
 
-          <div className="news-scroll-wrapper">
-            <div className="news-scroll d-flex gap-4 overflow-auto" ref={scrollRef}>
-              {event.map((event) => (
-                <div
-                  key={event.id}
-                  className="news-card bg-white p-3 rounded shadow-sm flex-shrink-0"
-                  style={{ width: '280px' }}
+        <div className="news-scroll-wrapper">
+          <div className="news-scroll d-flex gap-4 overflow-auto" ref={scrollRef}>
+            {event.map((event) => (
+              <div
+                key={event.id}
+                className="news-card bg-white p-3 rounded shadow-sm flex-shrink-0"
+                style={{ width: '280px' }}
+              >
+                <img
+                  src={`${event.image}`}
+                  alt={event.newstitle}
+                  className="img-fluid rounded mb-2"
+                  style={{ height: '160px', objectFit: 'cover', width: '100%' }}
+                />
+                <h6 className="text-truncate fw-bold text-dark" title={event.newstitle}>
+                  {event.newstitle}
+                </h6>
+                <p className="small mb-2">
+                  {event.description.length > 70
+                    ? event.description.substring(0, 70) + '...'
+                    : event.description}
+                </p>
+                <Button
+                  variant="light"
+                  className="read-more text-danger"
+                  size="sm"
+                  as={Link}
+                  to={`/news`}
                 >
-                  <img
-                        src={`${baseURL}/uploads/${event.image}`}
-                        alt={event.
-                      newstitle}
-                    className="img-fluid rounded mb-2"
-                    style={{ height: '160px', objectFit: 'cover', width: '100%' }}
-                  />
-                  <h6 className="text-truncate fw-bold text-dark" title={event.newstitle}>{event.newstitle}</h6>
-                  <p className="small mb-2">
-  {event.description ? (event.description.length > 70 ? event.description.substring(0, 70) + "..." : event.description) : "No description"}
-</p>               
-                  <Button variant='light' className="read-more text-danger"  size="sm" as={Link} to={`/newsdetail/${event._id}`}>
-                  Read more <span className="ms-1">&rsaquo;</span></Button>
-                </div>
-              ))}
-            </div>
+                  Read more <span className="ms-1">&rsaquo;</span>
+                </Button>
+              </div>
+            ))}
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
+    </div>
 
       {/* Video and Testimonials */}
       <Container className="video-tour-section py-5">

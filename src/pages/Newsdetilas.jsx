@@ -1,160 +1,121 @@
-// src/pages/Newsdetails.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Card, Button, Row, Col, Spinner, Alert, Breadcrumb } from 'react-bootstrap';
-import axios from 'axios';
+import { Container, Row, Col, Card, Button, Breadcrumb } from 'react-bootstrap';
+
+import ns1 from '../assets/ns1.jpeg';
+import ns2 from '../assets/ns2.jpg';
+import ns3 from '../assets/ns3.jpg';
+import ns4 from '../assets/ns4.jpg';
+import ns5 from '../assets/ns5.jpg';
+import ns6 from '../assets/ns6.jpeg';
+
+const imageMap = {
+  ns1, ns2, ns3, ns4, ns5, ns6,
+};
+
+const allNews = [
+  {
+    id: 'ns1',
+    newstitle: 'പുല്ലഴി സെൻറ് ക്രിസ്റ്റീന ഹോമിൻറെ 57 -)o കുടുംബദിനവാർഷികവും തിരുനാളും സംയുക്തമായി ആഘോഷിച്ചു',
+    description: 'Dear Friends, Christinas Home was established in 1967 by the Blessed Mar Joseph Kundukulam . 57th Family Day and Feast of Saint Christina jointly celebrated on 28th July 2024. With the service and care of Abhiwandya fathers and the hard work of Rev. Fr Joseph Vilangadan, Nirmaladasi Sisters, Christina Home has provided shelter to 4023 women and 4236 children of all castes and creeds. We remember each and every one of you in our prayers who supported us in this venture. Fr. Paulson Thattil-Director FrJustin Thadathil-Asst. Director Sr. Josephina-Mother Superior',
+    image: 'ns1',
+    date: '2024-07-01',
+  },
+  {
+    id: 'ns2',
+    newstitle: 'കുഞ്ഞുങ്ങളുടെ ഭവനത്തിലെ ശിശുദിനാഘോഷം',
+    description: 'Mathru-Dinam celebrations on Nov 1...',
+    image: 'ns2',
+    date: '2023-11-01',
+  },
+  {
+    id: 'ns3',
+    newstitle: "Children's Day Celebration and Adopted Familie's Get - Together",
+    description: 'Greetings from Holy Angels Foundling Home Pullazhy. We cordially invite your esteemed presence on the occasion of Childrens Day Celebration and the Adopted Families Get - Together on Sunday, 9th November 2019. We look forward to your encouraging presence on the day',
+    image: 'ns3',
+    date: '2019-11-09',
+  },
+  {
+    id: 'ns4',
+    newstitle: 'ശിശുദിനാഘോഷവും കുടുംബസംഘമവും',
+    description: 'സുവർണ്ണ ജൂബിലി നിറവിലായിരിക്കുന്ന സെൻറ് ക്രിസ്റ്റീന ഹോമിലെ Holy Angels Foundling ഹോമിൽ ശിശു ദിനവും മാതൃഭാവനത്തിൽ നിന്ന് ദത്തെടുത്തു പോയവരുടെ കുടുംബസംഗമവും സംയുക്തതമായി 10 Nov 2018 രാവിലെ 10am നു ആഘോഷിച്ചു .',
+    image: 'ns4',
+    date: '2018-11-10',
+  },
+  {
+    id: 'ns5',
+    newstitle: 'കരുണാഭവനങ്ങൾ ആശീർവദിക്കുന്നു',
+    description: 'Archbishop blessed the foundation site...',
+    image: 'ns5',
+    date: '2022-12-21',
+  },
+  {
+    id: 'ns6',
+    newstitle: 'Christmas Celebration at Holy Angels 2023',
+    description: 'Kids enjoyed carols and gifts...',
+    image: 'ns6',
+    date: '2023-12-25',
+  },
+];
 
 function Newsdetails() {
   const { id } = useParams();
   const [news, setNews] = useState(null);
-  const [otherNews, setOtherNews] = useState([]); // <- For sidebar other news
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const baseURL = 'https://christinahome-backend.onrender.com';
 
   useEffect(() => {
-    const fetchNewsDetail = async () => {
-      if (!id) {
-        setError("No news ID provided.");
-        setLoading(false);
-        return;
-      }
-      try {
-        const response = await axios.get(`${baseURL}/all-news/${id}`, {
-          headers: { "Content-Type": "application/json" },
-        });
-        setNews(response.data);
-      } catch (err) {
-        console.error("Error fetching news detail:", err);
-        setError("Failed to fetch news details. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchOtherNews = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/all-news`, {
-          headers: { "Content-Type": "application/json" },
-        });
-        // Filter out the current news
-        const others = response.data.filter(item => item._id !== id);
-        setOtherNews(others.slice(0, 5)); // Show only 5 others
-      } catch (err) {
-        console.error("Error fetching other news:", err);
-      }
-    };
-
-    fetchNewsDetail();
-    fetchOtherNews();
+    const selected = allNews.find((item) => item.id === id);
+    setNews(selected);
   }, [id]);
 
-  if (loading) {
+  if (!news) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
-        <Spinner animation="border" variant="danger" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container className="py-5">
-        <Alert variant="danger" className="text-center">{error}</Alert>
-        <div className="text-center">
-          <Button as={Link} to="/news" variant="outline-danger" className="mt-3">
-            ← Back To News
-          </Button>
-        </div>
+      <Container className="py-5 text-center">
+        <h5 className="text-danger">News not found</h5>
+        <Button as={Link} to="/news" variant="outline-danger">
+          ← Back To News
+        </Button>
       </Container>
     );
   }
 
   return (
-    <div>
-      {/* Header */}
-      <Container fluid className="pt-4 border-bottom">
-        <Row className="align-items-center justify-content-between">
-          <Col xs={12} md="auto">
-            <h2 className="fw-normal mb-2" style={{ color: 'black' }}>News Details</h2>
-          </Col>
-          <Col xs={12} md="auto" className="text-md-end text-start">
-            <small className="text-muted">
-              You are here:&nbsp;
-              <Breadcrumb className="d-inline-block mb-0">
-                <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
-                <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/news' }}>News</Breadcrumb.Item>
-                <Breadcrumb.Item active className="text-danger">Details</Breadcrumb.Item>
-              </Breadcrumb>
-            </small>
-          </Col>
-        </Row>
-        <hr className="mt-2 mb-0" />
-      </Container>
+    <Container className="py-5">
+      <Row className="mb-4">
+        <Col>
+          <h2>News Details</h2>
+          <Breadcrumb>
+            <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
+            <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/news' }}>News</Breadcrumb.Item>
+            <Breadcrumb.Item active>Details</Breadcrumb.Item>
+          </Breadcrumb>
+        </Col>
+      </Row>
 
-      {/* News Content */}
-      <Container className="py-5">
-        <Row>
-          {/* Main News */}
-          <Col lg={9} md={8}>
-            <Card className="shadow-sm">
-              {news?.image && (
-                <div style={{ height: '500px', overflow: 'hidden' }}>
-                  <Card.Img 
-                    variant="top" 
-                    src={`${baseURL}/uploads/${news.image}`} 
-                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                  />
-                </div>
-              )}
-              <Card.Body>
-                <Card.Title style={{ color: "brown" }} className="fw-bold">{news?.title || "Untitled"}</Card.Title>
-                <p className="text-muted">
-                  By: <span style={{ color: "brown" }}>Admin</span> | Posted on: {news?.date || "Unknown Date"}
-                </p>
-                <Card.Text>{news?.content}</Card.Text>
-                <p>{news?.description}</p>
-                <Button as={Link} to="/news" variant="secondary" className="mt-3">
-                  ← Back To News
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          {/* Other News Sidebar */}
-          <Col lg={3} md={4}>
-            <Card className="shadow-sm">
-              <Card.Header className="bg-white fw-bold">Other News</Card.Header>
-              <Card.Body>
-  {otherNews && otherNews.length > 0 ? (
-    otherNews.map((item) => (
-      <div key={item.id} className="d-flex mb-3">
-        <img
-          src={`${baseURL}/uploads/${item.image}`}
-          alt="news"
-          width="60"
-          height="60"
-          className="me-2 border rounded"
-          style={{ objectFit: 'cover' }}
-        />
-        <span style={{ fontSize: '0.85rem' }}>
-          {item.newstitle ? item.newstitle.substring(0, 50) : 'No Title'}
-        </span>
-      </div>
-    ))
-  ) : (
-    <p>No other news available.</p>
-  )}
-          <Link className='text-danger' to={'/News'}>All News →</Link>
-
-</Card.Body>
-
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+      <Row>
+        <Col md={8}>
+          <Card className="shadow-sm">
+            <div style={{ height: '400px', overflow: 'hidden' }}>
+              <Card.Img
+                variant="top"
+                src={imageMap[news.image]}
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+              />
+            </div>
+            <Card.Body>
+              <Card.Title className="text-brown">{news.newstitle}</Card.Title>
+              <p className="text-muted">
+                By: Admin | Posted on: {news.date}
+              </p>
+              <p>{news.content}</p>
+              <p>{news.description}</p>
+              <Button as={Link} to="/news" variant="secondary">
+                ← Back To News
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

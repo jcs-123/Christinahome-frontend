@@ -34,7 +34,7 @@ function Newslist() {
   const getAllNews = async () => {
     const reqHeader = { "Content-Type": "application/json" };
     try {
-      const result = await axios.get('https://christinahome-backend.onrender.com/all-news', { headers: reqHeader });
+      const result = await axios.get('http://localhost:4000/all-news', { headers: reqHeader });
       setAllNews(result.data);
       setFilteredNews(result.data);
     } catch (error) {
